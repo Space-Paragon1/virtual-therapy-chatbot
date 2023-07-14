@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Therapy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #200080;
+            margin: 10px 0;
+            position: sticky;
+            top: 0;
+            background-color: #f8f8f8;
+            padding: 10px;
+        }
+        .welcome{
+            padding-left: 80px;
+        }
+        .chat-container {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 60px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .message-list li {
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .user-message-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .user-message {
+            background-color: #200080;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: #f7f7f7;
+            display: inline-block;
+            max-width: 70%;
+        }
+
+        .bot-message-container {
+            display: flex;
+        }
+
+        .bot-message {
+            background-color: #d3d3d3;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: #060606;
+            display: inline-block;
+            max-width: 70%;
+        }
+
+        .chat-input {
+            margin-top: 10px;
+            position: sticky;
+            bottom: 0;
+            background-color: #f8f8f8;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .chat-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%;
+        }
+
+        .chat-input input[type="submit"] {
+            margin-left: 10px;
+            padding: 8px 16px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .chat-input input[type="submit"]:hover {
+            background-color: #405de6;
+        }
+         /* Logout button */
+         .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Virtual Therapy</h1>
+    <h2 class="welcome">Welcome, {{ full_name }}!</h2>
+    <div class="chat-container">
+       <!-- Logout button -->
+    <a class="logout-button" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+    
+
+
+        <ul class="message-list">
+            {% for message in chat_history %}
+                <li>
+                    {% if message.startswith('User:') %}
+                        <div class="user-message-container">
+                            <div class="user-message">{{ message.replace('User:', '') }}</div>
+                        </div>
+                    {% elif message.startswith('Bot:') %}
+                        <div class="bot-message-container">
+                            <div class="bot-message">{{ message.replace('Bot:', '') }}</div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="chat-input">
+            <form method="POST" action="/chat">
+                <input type="text" name="user_input" id="user-input" placeholder="Type your message here" autofocus>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Scroll to the bottom of the chat container
+        function scrollToBottom() {
+            var chatContainer = document.querySelector(".chat-container");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Scroll to bottom when the page loads
+        window.onload = scrollToBottom;
+
+        // Scroll to bottom after form submission
+        document.querySelector("form").addEventListener("submit", function () {
+            setTimeout(scrollToBottom, 0);
+        });
+    </script>
+</body>
+</html>

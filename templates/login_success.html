@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Successful</title>
+    <style>
+        /* CSS styles for the login success page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: #200080;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            text-align: center;
+            color: green;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login Successful</h2>
+        <p class="success-message">{{ success_message }}</p>
+        <p>Redirecting you to the chat page...</p>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "/chat";
+        }, 3000);  // Redirect to the chat page after 3 seconds
+    </script>
+</body>
+</html>

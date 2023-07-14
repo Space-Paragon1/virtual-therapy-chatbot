@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #200080;
+            margin: 10px 0;
+            position: sticky;
+            top: 0;
+            background-color: #f8f8f8;
+            padding: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #200080;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            object-fit: cover;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info label {
+            font-weight: bold;
+        }
+
+        .logout-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logout-button button {
+            background-color: #200080;
+            color: #f8f8f8;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-button button:hover {
+            background-color: #405de6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Virtual Therapy</h1>
+    <div class="container">
+        <h2>Dashboard</h2>
+        <div class="profile-info">
+            {% if profile_pic %}
+            <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" alt="Profile Picture">
+            {% else %}
+            <img class="profile-pic" src="{{ url_for('static', filename='profile_pics/default.png') }}" alt="Default Profile Picture">
+            {% endif %}
+            <div class="info">
+                <label>Username:</label> {{ username }}
+            </div>
+            <div class="info">
+                <label>Email:</label> {{ email }}
+            </div>
+            <div class="info">
+                <label>Age:</label> {{ age }}
+            </div>
+            <div class="info">
+                <label>Date of Birth:</label> {{ dob }}
+            </div>
+        </div>
+        <div class="logout-button">
+            <button onclick="location.href='/logout'">Logout</button>
+        </div>
+    </div>
+</body>
+</html>

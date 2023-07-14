@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Virtual Therapy</title>
+    <title>Virtual Therapy - Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
     <style>
@@ -21,18 +21,48 @@
             background-color: #f8f8f8;
             padding: 10px;
         }
-        .welcome{
-            padding-left: 80px;
+
+        .dashboard-container {
+            display: flex;
+            max-width: 800px;
+            margin: 50px auto;
+            align-items: center;
+         }
+
+
+        .sidebar {
+            width: 20%;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
+
+        .sidebar .chat-icon {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            margin-left: 20px;
+        }
+
+        .content h2 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
         .chat-container {
             background-color: #f8f8f8;
             padding: 10px;
-            margin: 10px;
+            margin-top: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            max-width: 600px;
-            margin: 0 auto;
-            margin-top: 60px;
             max-height: 400px;
             overflow-y: auto;
         }
@@ -65,7 +95,9 @@
         .bot-message-container {
             display: flex;
         }
-
+        .bot-icon {
+            margin-right: 8px;
+        }
         .bot-message {
             background-color: #d3d3d3;
             padding: 8px 12px;
@@ -105,60 +137,78 @@
         .chat-input input[type="submit"]:hover {
             background-color: #405de6;
         }
-         /* Logout button */
-         .logout-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+        
+        .dashboard-icon {
+            flex-grow: 1;
+            text-align: right;
+            margin-right: 35%;
         }
+
+        .dashboard-icon a {
+            color: #200080;
+            text-decoration: none;
+        }
+        
+        .profile-pic {
+             margin-right: 0px; /* Add this line */
+        }
+        .profile-pic img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 <body>
     <h1>Virtual Therapy</h1>
-    <h2 class="welcome">Welcome, {{ full_name }}!</h2>
-    <div class="chat-container">
-       <!-- Logout button -->
-    <a class="logout-button" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="header" >
+                <div class="profile-pic">
+                  <img src="{{ profile_pic }}" alt="Profile Picture">
+                </div>
+                <div class="dashboard-icon">
+                  <a href="{{ url_for('dashboard') }}"> {{ username }}</a>
+                </div>
+              </div>
+              
+        </div>
+        <div class="content">
+            <h2>Chat</h2>
+            <div class="chat-container">
     
-
-
-        <ul class="message-list">
-            {% for message in chat_history %}
-                <li>
-                    {% if message.startswith('User:') %}
-                        <div class="user-message-container">
-                            <div class="user-message">{{ message.replace('User:', '') }}</div>
-                        </div>
-                    {% elif message.startswith('Bot:') %}
-                        <div class="bot-message-container">
-                            <div class="bot-message">{{ message.replace('Bot:', '') }}</div>
-                        </div>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        <div class="chat-input">
-            <form method="POST" action="/chat">
-                <input type="text" name="user_input" id="user-input" placeholder="Type your message here" autofocus>
-                <input type="submit" value="Send">
-            </form>
+                <ul class="message-list">
+                    {% for message in chat_history %}
+                        <li>
+                            {% if message.startswith('User:') %}
+                                <div class="user-message-container">
+                                    <div class="user-message">{{ message.replace('User:', '') }}</div>
+                                </div>
+                            {% elif message.startswith('Bot:') %}
+                                <div class="bot-message-container">
+                                    <div class="bot-icon"><i class="fas fa-robot"></i></div>
+                                    <div class="bot-message">{{ message.replace('Bot:', '') }}</div>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="chat-input">
+                <form method="POST" action="{{ url_for('chat') }}">
+                    <input type="text" name="user_input" id="user-input" placeholder="Type your message here" autofocus>
+                    <input type="submit" value="Send">
+                </form>
+            </div>
         </div>
     </div>
-
-    <script>
-        // Scroll to the bottom of the chat container
-        function scrollToBottom() {
-            var chatContainer = document.querySelector(".chat-container");
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        // Scroll to bottom when the page loads
-        window.onload = scrollToBottom;
-
-        // Scroll to bottom after form submission
-        document.querySelector("form").addEventListener("submit", function () {
-            setTimeout(scrollToBottom, 0);
-        });
-    </script>
 </body>
 </html>

@@ -26,9 +26,8 @@
             display: flex;
             max-width: 800px;
             margin: 50px auto;
-            align-items: center;
-         }
-
+            align-items: flex-start;
+        }
 
         .sidebar {
             width: 20%;
@@ -150,14 +149,30 @@
         }
         
         .profile-pic {
-             margin-right: 0px; /* Add this line */
-        }
-        .profile-pic img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
+
+        .profile-status {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #2ecc71;
+            border: 2px solid #fff;
+        }
+        
         .header {
             display: flex;
             justify-content: space-between;
@@ -165,26 +180,32 @@
             margin-bottom: 20px;
         }
 
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Virtual Therapy</h1>
     <div class="dashboard-container">
         <div class="sidebar">
-            <div class="header" >
-                <div class="profile-pic">
-                  <img src="{{ profile_pic }}" alt="Profile Picture">
+            <div class="profile-pic">
+                <img src="{{ profile_pic }}" alt="Profile Picture">
+                <div class="profile-status"></div>
+            </div>
+            <div class="header">
+                <div class="user-info">
+                    <div class="dashboard-icon">
+                        <a href="{{ url_for('dashboard') }}">{{ username }}</a>
+                    </div>
                 </div>
-                <div class="dashboard-icon">
-                  <a href="{{ url_for('dashboard') }}"> {{ username }}</a>
-                </div>
-              </div>
-              
+            </div>
         </div>
         <div class="content">
             <h2>Chat</h2>
             <div class="chat-container">
-    
                 <ul class="message-list">
                     {% for message in chat_history %}
                         <li>

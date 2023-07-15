@@ -98,11 +98,13 @@ def login():
         user = User.query.filter_by(username=username, password=password).first()
         if user:
             session['username'] = username
-            return redirect(url_for('chat'))
+            success_message = "Login successful!"
+            return render_template('login_success.html', success_message=success_message)
 
         error_message = "Invalid username or password. Please try again."
         return render_template('login.html', error_message=error_message)
-
+    
+    
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -211,7 +213,7 @@ def chat():
         return redirect(url_for('chat'))
     
     username = session['username']
-    profile_pic = url_for('static', filename='profile_pics/' + username + '.png')
+    profile_pic = url_for('static', filename='profile_pics/' + username + '.jpg')
         
     
     return render_template('chat.html', chat_history=chat_history, username=username, profile_pic=profile_pic)
@@ -224,4 +226,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

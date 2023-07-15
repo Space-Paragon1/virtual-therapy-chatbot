@@ -5,7 +5,7 @@ Virtual Therapy is a web application that provides an interactive chat interface
 ## Features
 
 - User Registration: Users can create an account by providing their username, password, full name, age, email, and date of birth. They can also upload a profile picture during registration.
-- User Login: Registered users can log in to access the chat interface and other features.
+- User Login: Registered users can access the chat interface and other features.
 - Chat Interface: Users can engage in a conversation with the virtual therapist. The application utilizes OpenAI's language model to generate responses based on user input and provide assistance on mental health-related topics.
 - Profile Dashboard: Users can view their profile information, including their username, email, age, date of birth, and profile picture.
 - Logout: Users can securely log out from their account.
@@ -55,18 +55,21 @@ Virtual Therapy is a web application that provides an interactive chat interface
 
 6.  Open your web browser and navigate to http://localhost:5000 to access the Virtual Therapy application.
 
-##Usage
+## Usage
+
 i. Register a new account by providing the required information, including a profile picture if desired.
-ii. Log in with your credentials.
+ii. Login with your credentials.
 iii. Engage in a conversation with the virtual therapist by typing your queries or concerns in the chat interface.
 iv. Explore the dashboard to view your profile information.
 v. Log out when you're done using the application.
 
-##Contributing
+## Contributing
+
 Contributions are welcome! If you find any issues or want to enhance the functionality of the Virtual Therapy application, please open an issue or submit a pull request.
 
-##License
+## License
+
 This project is licensed under the MIT License.
 
-
-Feel free to customize the template according to your project's specific de
+```bash
+Feel free to customize the content and sections of the README file as needed to accurately represent your project.

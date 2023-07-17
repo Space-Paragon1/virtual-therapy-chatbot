@@ -70,6 +70,3 @@ Contributions are welcome! If you find any issues or want to enhance the functio
 ## License
 
 This project is licensed under the MIT License.
-
-```bash
-Feel free to customize the content and sections of the README file as needed to accurately represent your project.
